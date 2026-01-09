@@ -1,0 +1,201 @@
+TITLE
+ example .imd file
+END
+# we have 1 solute and 908 solvent molecules
+SYSTEM
+#      NPM      NSM 
+       1      0
+END
+# most of this block is overwritten by mkscript.
+INITIALISE
+#    NTIVEL   NTISHK   NTINHT    NTINHB    NTISHI  NTIRTC     NTICOM   NTISTI      IG     TEMPI
+         1         0        0         0         1       0          0        0  282222       298.0
+END
+# do 10 ns
+STEP
+#   NSTLIM         T        DT
+    5100000          0.0     0.002
+END
+# do it with rectangular periodic boundary conditions
+BOUNDCOND
+#      NTB     NDFMIN
+         1         3 
+END
+# couple the temperature, the temperatures are overwritten by mkscript.
+MULTIBATH
+# ALGORITHM:
+#      weak-coupling(0):      use weak-coupling scheme
+#      nose-hoover(1):        use Nose Hoover scheme
+#      nose-hoover-chains(2): use Nose Hoover chains scheme
+# NUM: number of chains in Nose Hoover chains scheme
+#      !! only specify NUM when needed !!
+# NBATHS: number of temperature baths to couple to
+#          ALGORITHM
+                   0
+#  NBATHS
+         2
+# TEMP0(1 ... NBATHS)  TAU(1 ... NBATHS)
+       300                0.1
+       300                0.1     
+#   DOFSET: number of distiguishable sets of d.o.f.
+         2
+# LAST(1 ... DOFSET)  COMBATH(1 ... DOFSET)  IRBATH(1 ... DOFSET)
+       62                    1                     1
+   15062                    2                     2
+END
+PRESSURESCALE
+# COUPLE   SCALE    COMP    TAUP  VIRIAL
+       2       1 0.0004575      0.5       2 
+# SEMI
+       1       1       1
+# PRES0(1...3,1...3)
+ 0.06102       0       0
+       0 0.06102       0
+       0       0 0.06102
+END
+# every 1000 step we remove only the translational com motion
+COMTRANSROT
+#   NSCM
+    1000
+END
+COVALENTFORM
+# NTBBH: 0,1 controls bond-stretching potential
+#        0: quartic form (default)
+#        1: harmonic form
+# NTBAH: 0,1 controls bond-angle bending potential
+#        0: cosine-harmonic (default)
+#        1: harmonic
+# NTBDN: 0,1 controls torsional dihedral potential
+#        0: arbitrary phase shifts (default)
+#        1: phase shifts limited to 0 and 180 degrees.
+#   NTBBH    NTBAH    NTBDN
+        1        1        0
+END
+# every 250 steps write the energy and coordinates to the
+# trajectory
+WRITETRAJ
+# NTWSE = configuration selection parameter
+# =0: write normal trajectory
+# >0: chose min energy for writing configurations
+#     NTWX     NTWSE      NTWV      NTWF    NTWE      NTWG      NTWB
+       20000         0         0         0     20000         0         0
+END
+# every 250 steps print the energy in the output file.
+PRINTOUT
+#NTPR: print out energies, etc. every NTPR steps
+#NTPP: =1 perform dihedral angle transition monitoring
+#     NTPR     NTPP
+       20000        0
+END
+# calculate the energies between the peptide, the ions and the solvent.
+FORCE
+# NTF(1..6): 0,1 determines terms used in force calculation
+#             0: do not include terms
+#             1: include terms
+# NEGR: ABS(NEGR): number of energy groups
+#             > 0: use energy groups
+#             < 0: use energy and force groups
+# NRE(1..NEGR): >= 1.0 last atom in each energy group
+# NTF(1) NTF(2) NTF(3) NTF(4) NTF(5)        NTF(6)
+# bonds     angles    improper  dihedral  electrostatic vdW
+  0         1         1         1         1             1
+# NEGR    NRE(1)    NRE(2)    ...      NRE(NEGR)
+     2      62    15062
+END
+# use the shake algorithm to constrain the bond lengths.
+CONSTRAINT
+#      NTC       NTCP   NTCP0(1)     NTCS      NTCS0(1)
+         3          1    0.00010       1      0.00010 
+END
+# use grid based pairlist generation to speed up
+PAIRLIST
+#	algorithm: standard(0) (gromos96 like pairlist)
+#		             grid(1) (XX grid pairlist)
+#	SIZE:	   grid cell size (or auto = 0.5 * RCUTP)
+#	TYPE:	   chargegoup(0) (chargegroup based cutoff)
+#			         atomic(1) (atom based cutoff)
+#
+#	algorithm	  NSNB	RCUTP	RCUTL	  SIZE	TYPE
+	        1	   5	  0.8	  1.4	   0.4	   0
+END
+# Longrange reaction field correction
+NONBONDED
+# NLRELE    APPAK      RCRF     EPSRF   NSLFEXCL
+       1      0.0       1.4     4.81    1
+# NSHAPE   ASHAPE    NA2CLC   TOLA2   EPSLS
+       3       1.4        2   1e-10       0
+# NKX    NKY   NKZ    KCUT
+   10     10    10     100
+# NGX   NGY   NGZ  NASORD  NFDORD   NALIAS  NSPORD
+   32    32    32       3       2        3       4
+# NQEVAL   FACCUR   NRDGRD   NWRGRD   NLRLJ    SLVDNS
+  100000      1.6        0        0       0      33.3
+END
+DIHEDRALRES
+# NTDLR   0...3 controls dihedral-angle restraining and constraining
+#         0:    off [default]
+#         1:    dihedral restraining using CDLR
+#         2:    dihedral restraining using CDLR * WDLR
+#         3:    dihedral constraining (using sine and cosine)
+#
+# CDLR    >=0.0 force constant for dihedral restraining [kJ/mol/degree^2] #e.g. 100
+# PHILIN  >0.0  deviation after which the potential energy function is linearized #e.g. 180
+# VDIH 0,1 controls contribution to virial
+#         0: no contribution
+#         1: dihedral restraints contribute to virial
+# NTWDLR  >=0   write every NTWDLR step dihedral information to external file
+# TOLDAC  >0    tolerance for constraint deviation (in degrees)
+#
+# NTDLR  CDLR      PHILIN  VDIH  NTWDLR  TOLDAC
+  1      0.1	    180.0     0   10       0.01
+END
+#LOCALELEV
+# NTLES NLEPOT NTLESA NTWLE
+#1 1 2 100
+# NLEPID[1..NLEPOT]
+#1
+# NLEPFR[1..NLEPOT]
+#0
+#END
+AMBER
+#       AMBER   AMBSCAL
+        1       1.2
+END
+QMMM 
+# NTQMMM -1..3 apply QM/MM 
+#    0: do not apply QM/MM 
+#   -1: apply mechanical embedding scheme with constant QM charges \
+#    1: apply mechanical embedding scheme with dynamic QM charges \
+#    2: apply electrostatic embedding scheme \
+#    3: apply polarisable embedding scheme \
+# NTQMSW -1..7 QM software package to use \
+#   -1: Ghost \
+#    0: MNDO \
+#    1: Turbomole \
+#    2: DFTB \
+#    3: MOPAC \
+#    4: Gaussian \
+#    5: Schnetpack NN \
+#    6: Orca \
+#    7: XTB \
+# RCUTQM: ABS(RCUTQM): cutoff for inclusion of MM atoms in QM calculation \
+#         (ignored for NTQMMM = 1) \
+#     0.0: include all atoms \
+#    >0.0: chargegroup-based cutoff \
+#    <0.0: atom-based cutoff \
+# NTWQMMM >= 0 write QM/MM related data to special trajectory \
+#    0: do not write \
+#   >0: write every NTWQMMMth step \
+# QMLJ 0, 1 apply LJ between QM atoms  \
+#    0: do not apply \
+#    1: apply \
+# QMCON 0, 1 keep distance constraints in QM zone  \
+#    0: remove \
+#    1: keep \
+# MMSCALE scale mm-charges with (2/pi)*atan(x*(r_{qm}-r_{mm})) (optional)  \
+#     > 0.0: scaling-factor x \
+#     < 0.0: dont scale (default) \
+# \
+# NTQMMM  NTQMSW  RCUTQM  NTWQMMM QMLJ QMCON MMSCALE \
+       2       7   1.4       0    0     0    -1.0
+END

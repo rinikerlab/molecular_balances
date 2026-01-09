@@ -1,0 +1,17 @@
+TITLE
+Constraining the dihedral angle
+END
+DIHEDRALRESSPEC
+# IPLR, JPLR, KPLR, LPLR   atom sequence numbers of the atoms defining the
+#                          restrained dihedral i-j-k-l
+# WDLR                     individual dihedral restraint weight factor by which
+#                          the harmonic dihedral restraining term may be multiplied.
+# PDLR                     dihedral angle value (in degrees) at minimum energy
+#                          of the harmonic dihedral restraining term.
+# DELTA                    deviation of the zero-energy dihedral angle value after
+#                          which the restraint switches to the next periodic
+#                          value. The dihedral angle is put in the interval
+#                          [ PDLR + DELTA - 360 , PDLR + DELTA ]
+#  IPLR  JPLR  KPLR  LPLR  WDLR  PDLR  DELTA
+    3 10 13 15 1.0 0 180
+END

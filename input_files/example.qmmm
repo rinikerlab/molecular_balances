@@ -1,0 +1,195 @@
+TITLE
+QMMM specification file
+END
+QMUNIT
+# QMULEN        QMUENE            QMUFOR     QMUCHR
+0.0529177       2625.5            49641      1.0
+END
+QMZONE
+# NETCH   SPINM
+      0       1
+# QMI:  index of the QM atom
+# QMZ:  atomic number of the QM atom
+# QMLI: 0,1 atom is a link atom
+# Warning: the first 17 characters are ignored!
+# RESIDUE   ATOM     QMI   QMZ   QMLI
+1 UNL   C1         1 6		0
+1 UNL   O1         2 8		0
+1 UNL   C2         3 6		0
+1 UNL   O2         4 8		0
+1 UNL   C3         5 6		0
+1 UNL   C4         6 6		0
+1 UNL   C5         7 6		0
+1 UNL   C6         8 6		0
+1 UNL   C7         9 6		0
+1 UNL   C8        10 6		0
+1 UNL   C9        11 6		0
+1 UNL   C10       12 6		0
+1 UNL   C11       13 6		0
+1 UNL   C12       14 6		0
+1 UNL   N1        15 7		0
+1 UNL   C13       16 6		0
+1 UNL   O3        17 8		0
+1 UNL   C14       18 6		0
+1 UNL   C15       19 6		0
+1 UNL   C16       20 6		0
+1 UNL   C17       21 6		0
+1 UNL   CL1       22 17		0
+1 UNL   C18       23 6		0
+1 UNL   C19       24 6		0
+1 UNL   C20       25 6		0
+1 UNL   C21       26 6		0
+1 UNL   C22       27 6		0
+1 UNL   C23       28 6		0
+1 UNL   N2        29 7		0
+1 UNL   C24       30 6		0
+1 UNL   O4        31 8		0
+1 UNL   C25       32 6		0
+1 UNL   C26       33 6		0
+1 UNL   C27       34 6		0
+1 UNL   C28       35 6		0
+1 UNL   O5        36 8		0
+1 UNL   C29       37 6		0
+1 UNL   C30       38 6		0
+1 UNL   C31       39 6		0
+1 UNL   H1        40 1		0
+1 UNL   H2        41 1		0
+1 UNL   H3        42 1		0
+1 UNL   H4        43 1		0
+1 UNL   H5        44 1		0
+1 UNL   H6        45 1		0
+1 UNL   H7        46 1		0
+1 UNL   H8        47 1		0
+1 UNL   H9        48 1		0
+1 UNL   H10       49 1		0
+1 UNL   H11       50 1		0
+1 UNL   H12       51 1		0
+1 UNL   H13       52 1		0
+1 UNL   H14       53 1		0
+1 UNL   H15       54 1		0
+1 UNL   H16       55 1		0
+1 UNL   H17       56 1		0
+1 UNL   H18       57 1		0
+1 UNL   H19       58 1		0
+1 UNL   H20       59 1		0
+1 UNL   H21       60 1		0
+1 UNL   H22       61 1		0
+1 UNL   H23       62 1		0
+END
+XTBOPTIONS
+# GFNH    XVER
+     2       0
+END
+XTBFILES 
+/path/balance1/00/qmmm/logqmmm/qmmm_1_r0_0.log 
+END			
+TRAJECTORY 
+/path/balance1/00/qmmm/logqmmm/coord/qmmm_1_r0_0.coord 
+/path/balance1/00/qmmm/logqmmm/pc/qmmm_1_r0_0.pc 
+/path/balance1/00/qmmm/logqmmm/engrad/qmmm_1_r0_0.engrad 
+/path/balance1/00/qmmm/logqmmm/pcgrad/qmmm_1_r0_0.pcgrad 
+END			
+IAC
+# IAC   ATMS   ATMN
+    1      C      6
+    2      O      8
+    3      C      6
+    4      O      8
+    5      C      6
+    6      N      7
+    7     Cl     17
+    8      H      1
+    9      H      1
+   10      H      1
+   11      O      8
+   12      H      1
+   13    DUM      1
+END
+ELEMENTS
+  1  H
+  2  He
+  3  Li
+  4  Be
+  5  B
+  6  C
+  7  N
+  8  O
+  9  F
+ 10  Ne
+ 11  Na
+ 12  Mg
+ 13  Al
+ 14  Si
+ 15  P
+ 16  S
+ 17  Cl
+ 18  Ar
+ 19  K
+ 20  Ca
+ 21  Sc
+ 22  Ti
+ 23  V
+ 24  Cr
+ 25  Mn
+ 26  Fe
+ 27  Co
+ 28  Ni
+ 29  Cu
+ 30  Zn
+ 31  Ga
+ 32  Ge
+ 33  As
+ 34  Se
+ 35  Br
+ 36  Kr
+ 37  Rb
+ 38  Sr
+ 39  Y
+ 40  Zr
+ 41  Nb
+ 42  Mo
+ 43  Tc
+ 44  Ru
+ 45  Rh
+ 46  Pd
+ 47  Ag
+ 48  Cd
+ 49  In
+ 50  Sn
+ 51  Sb
+ 52  Te
+ 53  I
+ 54  Xe
+ 55  Cs
+ 56  Ba
+ 57  La
+ 58  Ce
+ 59  Pr
+ 60  Nd
+ 61  Pm
+ 62  Sm
+ 63  Eu
+ 64  Gd
+ 65  Tb
+ 66  Dy
+ 67  Ho
+ 68  Er
+ 69  Tm
+ 70  Yb
+ 71  Lu
+ 72  Hf
+ 73  Ta
+ 74  W
+ 75  Re
+ 76  Os
+ 77  Ir
+ 78  Pt
+ 79  Au
+ 80  Hg
+ 81  Tl
+ 82  Pb
+ 83  Bi
+ 84  Po
+ 85  At
+ 86  Rn
+END
